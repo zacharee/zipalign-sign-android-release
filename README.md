@@ -61,7 +61,7 @@ The output variable `signedReleaseFile` can be used in a release action.
 
 ```yaml
 steps:
-  - uses: r0adkll/sign-android-release@v1
+  - uses: kevin-david/zipalign-sign-android-release@v1.1
     name: Sign app APK
     # ID used to access action output
     id: sign_app
@@ -71,6 +71,7 @@ steps:
       alias: ${{ secrets.ALIAS }}
       keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
       keyPassword: ${{ secrets.KEY_PASSWORD }}
+      zipAlign: true
     env:
       # override default build-tools version (32.0.0) -- optional
       BUILD_TOOLS_VERSION: "30.0.2"
@@ -89,7 +90,7 @@ can be used to refer to each signed release file.
 
 ```yaml
 steps:
-  - uses: r0adkll/sign-android-release@v1
+  - uses: kevin-david/zipalign-sign-android-release@v1.1
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release
