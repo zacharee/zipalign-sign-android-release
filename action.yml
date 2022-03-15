@@ -1,6 +1,6 @@
-name: 'Sign Android release'
-description: 'An action to sign an Android release APK or AAB'
-author: 'r0adkll'
+name: 'ZipAlign & Sign Android release'
+description: 'An action to zipalign & sign an Android release APK or AAB'
+author: 'kevin-david'
 branding:
   icon: 'edit'
   color: 'orange'
@@ -20,6 +20,10 @@ inputs:
   keyPassword:
     description: 'The password for the key'
     required: false
+  zipAlign:
+    description: 'Actually zipalign the apk, rather than just verifying it'
+    required: false
+    default: 'false'
 outputs:
   signedReleaseFile:
     description: 'The signed release APK or AAB file, if single'
