@@ -28,7 +28,7 @@ jobs:
           path: __tests__/test_key_b64.txt
 
       - uses: ./
-        name: zipalign and Sign APK
+        name: Sign APK Clean
         with:
           releaseDirectory: __tests__/apk-zip
           signingKeyBase64: ${{ steps.get_key.outputs.text }}
