@@ -10,7 +10,8 @@ export async function signApkFile(
     alias: string,
     keyStorePassword: string,
     keyPassword?: string,
-    doZipAlign?: boolean
+    doZipAlign?: boolean,
+    usePageAlign?: boolean
 ): Promise<string> {
 
     core.debug("Zipaligning APK file");
@@ -30,12 +31,9 @@ export async function signApkFile(
     if (doZipAlign === true) {
         const unAlignedApk = apkFile + ".unaligned";
         fs.renameSync(apkFile, unAlignedApk);
-        await exec.exec(`"${zipAlign}"`, [
-            '-v',
-            '4',
-            unAlignedApk,
-            apkFile
-        ]);
+        const zipAlignArgs = ['-v', '4', unAlignedApk, apkFile];
+        if (usePageAlign) zipAlignArgs.unshift('-p');
+        await exec.exec(`"${zipAlign}"`, zipAlignArgs);
     }
 
     // Verify alignment
