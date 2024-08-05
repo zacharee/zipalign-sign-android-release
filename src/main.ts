@@ -19,7 +19,7 @@ async function run() {
     const zipAlign = core.getBooleanInput('zipAlign')
     const pageAlign = core.getBooleanInput('pageAlign')
 
-    console.log(`Preparing to sign key @ ${releaseDir} with signing key`);
+    console.log(`Preparing to sign file(s) @ ${releaseDir} with signing key`);
 
     // 1. Find release files
     const releaseFiles = io.findReleaseFiles(releaseDir);
@@ -57,7 +57,7 @@ async function run() {
       core.exportVariable(`NOF_SIGNED_RELEASE_FILES`, `${signedReleaseFiles.length}`);
       core.setOutput(`nofSignedReleaseFiles`, `${signedReleaseFiles.length}`);
 
-      // When there is one and only one signed release file, stoire it in a specific variable + output.
+      // When there is one and only one signed release file, store it in a specific variable + output.
       if (signedReleaseFiles.length == 1) {
         core.exportVariable(`SIGNED_RELEASE_FILE`, signedReleaseFiles[0]);
         core.setOutput('signedReleaseFile', signedReleaseFiles[0]);
