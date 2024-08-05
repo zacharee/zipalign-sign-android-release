@@ -18,8 +18,9 @@ jobs:
       - uses: actions/checkout@v4
         name: Checkout
 
-      - run: npm install
-
+      - name: Install dependencies
+        run: npm install && npm i -g @vercel/ncc
+        
       - name: Build
         run: npm run build
 
