@@ -16,7 +16,7 @@ export default tseslint.config(
     },
   },
   {
-    ignores: [ "lib/", "eslint.config.mjs", "jest.config.js" ],
+    ignores: [ "lib/", "eslint.config.mjs", "jest.config.cjs" ],
   },
   {
     files: ['**/*.js'],
