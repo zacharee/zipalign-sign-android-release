@@ -33,7 +33,6 @@ export default [
     },
   },
   stylistic.configs.customize({
-    // the following options are the default values
     indent: 4,
     quotes: 'single',
     semi: true,
