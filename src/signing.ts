@@ -46,7 +46,7 @@ export async function signApkFile(
         ]);
     }
     catch (e) {
-        console.error(`zipalign verification failed: ${(e as any)?.message ?? e}.\n Did you mean to run this with  \`zipAlign: true\`?`);
+        console.error(`zipalign verification failed: ${(e as Error)?.message ?? e}.\n Did you mean to run this with  \`zipAlign: true\`?`);
         throw e;
     }
 
