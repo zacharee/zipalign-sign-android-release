@@ -65,7 +65,7 @@ The output variable `signedReleaseFile` can be used in a release action.
 
 ```yaml
 steps:
-  - uses: kevin-david/zipalign-sign-android-release@v1.1
+  - uses: kevin-david/zipalign-sign-android-release@v2
     name: Sign app APK
     # ID used to access action output
     id: sign_app
@@ -81,7 +81,7 @@ steps:
       BUILD_TOOLS_VERSION: "34.0.0"
 
   # Example use of `signedReleaseFile` output -- not needed
-  - uses: actions/upload-artifact@v2
+  - uses: actions/upload-artifact@v4
     with:
       name: Signed app bundle
       path: ${{steps.sign_app.outputs.signedReleaseFile}}
@@ -94,7 +94,7 @@ can be used to refer to each signed release file.
 
 ```yaml
 steps:
-  - uses: kevin-david/zipalign-sign-android-release@v1.1
+  - uses: kevin-david/zipalign-sign-android-release@v2
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release
@@ -125,7 +125,7 @@ before being used in a release action.
 
 ```yaml
 steps:
-  - uses: kevin-david/zipalign-sign-android-release@v1.1
+  - uses: kevin-david/zipalign-sign-android-release@v2
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release
