@@ -16,9 +16,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        name: Checkout code
+        name: Checkout
 
-      - name: Run build
+      - run: npm install
+
+      - name: Build
         run: npm run build
 
       - name: Ensure no pending Git changes
