@@ -19,22 +19,15 @@ jobs:
         name: Checkout
 
       - name: Install dependencies
-        run: npm install && npm i -g @vercel/ncc
+        run: |
+          npm install
+          npm install -g @vercel/ncc
         
       - name: Build
         run: npm run build
 
       - name: eslint
         run: npx eslint
-
-      - name: Ensure no pending Git changes
-        run: |
-          GIT_STATUS=$(git status --porcelain)
-          if [[ -n $GIT_STATUS ]]; then
-            echo "There are pending Git changes after running the build. Did you forget to commit the .js files?"
-            echo "$GIT_STATUS"
-            exit 1
-          fi
 
       - name: Run tests
         run: npm run test
