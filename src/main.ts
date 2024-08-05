@@ -17,6 +17,7 @@ async function run() {
     const keyStorePassword = core.getInput('keyStorePassword', { required: true });
     const keyPassword = core.getInput('keyPassword');
     const zipAlign = core.getBooleanInput('zipAlign')
+    const pageAlign = core.getBooleanInput('pageAlign')
 
     console.log(`Preparing to sign key @ ${releaseDir} with signing key`);
 
@@ -35,7 +36,7 @@ async function run() {
         const releaseFilePath = path.join(releaseDir, releaseFile.name);
         let signedReleaseFile = '';
         if (releaseFile.name.endsWith('.apk')) {
-          signedReleaseFile = await signApkFile(releaseFilePath, signingKey, alias, keyStorePassword, keyPassword, zipAlign);
+          signedReleaseFile = await signApkFile(releaseFilePath, signingKey, alias, keyStorePassword, keyPassword, zipAlign, pageAlign);
         } else if (releaseFile.name.endsWith('.aab')) {
           signedReleaseFile = await signAabFile(releaseFilePath, signingKey, alias, keyStorePassword, keyPassword);
         } else {

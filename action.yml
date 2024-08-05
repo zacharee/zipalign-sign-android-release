@@ -24,6 +24,10 @@ inputs:
     description: 'Actually zipalign the apk, rather than just verifying it'
     required: false
     default: 'false'
+  pageAlign:
+    description: 'Page-aligns uncompressed .so files'
+    required: false
+    default: 'true'
 outputs:
   signedReleaseFile:
     description: 'The signed release APK or AAB file, if single'

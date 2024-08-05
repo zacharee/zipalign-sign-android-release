@@ -35,6 +35,10 @@ Then copy the contents of the `.txt` file to your GH secrets
 
 **Optional:** True to run `zipalign` on the `.apk` to perform the operation, rather than just verify zipalign.
 
+### `pageAlign`
+
+**Optional:** Whether to use the `-p` flag with `zipalign`, which page-aligns uncompressed .so files.
+
 ## ENV: `BUILD_TOOLS_VERSION`
 
 **Optional:** You can manually specify a version of build-tools to use. We use `32.0.0` by default.
