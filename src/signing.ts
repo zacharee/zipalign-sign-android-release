@@ -1,8 +1,8 @@
 import * as exec from '@actions/exec';
 import * as core from '@actions/core';
 import * as io from '@actions/io';
-import * as path from "path";
-import * as fs from "fs";
+import * as path from 'path';
+import * as fs from 'fs';
 
 export async function signApkFile(
     apkFile: string,
@@ -11,17 +11,16 @@ export async function signApkFile(
     keyStorePassword: string,
     keyPassword?: string,
     doZipAlign?: boolean,
-    usePageAlign?: boolean
+    usePageAlign?: boolean,
 ): Promise<string> {
-
-    core.debug("Zipaligning APK file");
+    core.debug('Zipaligning APK file');
 
     // Find zipalign executable
     const buildToolsVersion = process.env.BUILD_TOOLS_VERSION || '33.0.0';
     const androidHome = process.env.ANDROID_HOME;
     const buildTools = path.join(androidHome!, `build-tools/${buildToolsVersion}`);
     if (!fs.existsSync(buildTools)) {
-        core.error(`Couldnt find the Android build tools @ ${buildTools}`)
+        core.error(`Couldnt find the Android build tools @ ${buildTools}`);
     }
 
     const zipAlign = path.join(buildTools, 'zipalign');
@@ -29,10 +28,12 @@ export async function signApkFile(
 
     // Align the apk file
     if (doZipAlign === true) {
-        const unAlignedApk = apkFile + ".unaligned";
+        const unAlignedApk = apkFile + '.unaligned';
         fs.renameSync(apkFile, unAlignedApk);
         const zipAlignArgs = ['-v', '4', unAlignedApk, apkFile];
-        if (usePageAlign) zipAlignArgs.unshift('-p');
+        if (usePageAlign) {
+            zipAlignArgs.unshift('-p');
+        }
         await exec.exec(`"${zipAlign}"`, zipAlignArgs);
     }
 
@@ -40,9 +41,9 @@ export async function signApkFile(
     try {
         await exec.exec(`"${zipAlign}"`, [
             '-c',
-            '-v', 
+            '-v',
             '4',
-            apkFile
+            apkFile,
         ]);
     }
     catch (e) {
@@ -50,7 +51,7 @@ export async function signApkFile(
         throw e;
     }
 
-    core.debug("Signing APK file");
+    core.debug('Signing APK file');
 
     // find apksigner path
     const apkSigner = path.join(buildTools, 'apksigner');
@@ -62,7 +63,7 @@ export async function signApkFile(
         'sign',
         '--ks', signingKeyFile,
         '--ks-pass', `pass:${keyStorePassword}`,
-        '--out', signedApkFile
+        '--out', signedApkFile,
     ];
 
     if (alias) {
@@ -78,13 +79,13 @@ export async function signApkFile(
     await exec.exec(`"${apkSigner}"`, args);
 
     // Verify
-    core.debug("Verifying Signed APK");
+    core.debug('Verifying Signed APK');
     await exec.exec(`"${apkSigner}"`, [
         'verify',
-        signedApkFile
+        signedApkFile,
     ]);
 
-    return signedApkFile
+    return signedApkFile;
 }
 
 export async function signAabFile(
@@ -94,7 +95,7 @@ export async function signAabFile(
     keyStorePassword: string,
     keyPassword?: string,
 ): Promise<string> {
-    core.debug("Signing AAB file");
+    core.debug('Signing AAB file');
     const jarSignerPath = await io.which('jarsigner', true);
     core.debug(`Found 'jarsigner' @ ${jarSignerPath}`);
     const args = [
@@ -110,5 +111,5 @@ export async function signAabFile(
 
     await exec.exec(`"${jarSignerPath}"`, args);
 
-    return aabFile
+    return aabFile;
 }
