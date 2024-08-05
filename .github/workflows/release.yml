@@ -25,8 +25,10 @@ jobs:
 
       - name: Ensure no pending Git changes
         run: |
-          if [[ -n $(git status --porcelain) ]]; then
+          GIT_STATUS=$(git status --porcelain)
+          if [[ -n $GIT_STATUS ]]; then
             echo "There are pending Git changes after running the build. Did you forget to commit the .js files?"
+            echo "$GIT_STATUS"
             exit 1
           fi
 
