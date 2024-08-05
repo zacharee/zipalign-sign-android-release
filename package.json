@@ -6,7 +6,7 @@
   "main": "lib/main.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "ncc build src/main.ts -o lib",
     "test": "jest",
     "prepare": "husky"
   },
