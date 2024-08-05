@@ -13,7 +13,7 @@ inputs:
     required: true
   alias:
     description: 'The key alias'
-    required: true
+    required: false
   keyStorePassword:
     description: 'The password to the keystore'
     required: true

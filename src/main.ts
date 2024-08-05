@@ -13,7 +13,7 @@ async function run() {
 
     const releaseDir = core.getInput('releaseDirectory', { required: true });
     const signingKeyBase64 = core.getInput('signingKeyBase64', { required: true });
-    const alias = core.getInput('alias', { required: true });
+    const alias = core.getInput('alias', { required: false });
     const keyStorePassword = core.getInput('keyStorePassword', { required: true });
     const keyPassword = core.getInput('keyPassword');
     const zipAlign = core.getBooleanInput('zipAlign')

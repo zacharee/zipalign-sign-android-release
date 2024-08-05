@@ -21,7 +21,7 @@ Then copy the contents of the `.txt` file to your GH secrets
 
 ### `alias`
 
-**Required:** The alias of your signing key 
+**Optional:** The alias of your signing key  (note: if you're signing an `aab` file, this is still required.)
 
 ### `keyStorePassword`
 

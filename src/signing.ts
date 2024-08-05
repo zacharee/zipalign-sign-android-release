@@ -61,10 +61,13 @@ export async function signApkFile(
     const args = [
         'sign',
         '--ks', signingKeyFile,
-        '--ks-key-alias', alias,
         '--ks-pass', `pass:${keyStorePassword}`,
         '--out', signedApkFile
     ];
+
+    if (alias) {
+        args.push('--ks-key-alias', alias);
+    }
 
     if (keyPassword) {
         args.push('--key-pass', `pass:${keyPassword}`);
