@@ -34,13 +34,13 @@ jobs:
       - name: Load test key
         id: get_key
         run: |
-          value=$(cat __tests__/test_key_b64.txt)
+          value=$(cat src/tests/test_key_b64.txt)
           echo "text=$value" >> $GITHUB_OUTPUT
 
       - uses: ./
         name: zipalign and Sign APK
         with:
-          releaseDirectory: __tests__/apk-zip
+          releaseDirectory: src/tests/apk-zip
           signingKeyBase64: ${{ steps.get_key.outputs.text }}
           alias: test_key
           keyStorePassword: android
@@ -50,7 +50,7 @@ jobs:
       - uses: ./
         name: Sign APK
         with:
-          releaseDirectory: __tests__/apk
+          releaseDirectory: src/tests/apk
           signingKeyBase64: ${{ steps.get_key.outputs.text }}
           alias: test_key
           keyStorePassword: android
@@ -59,7 +59,7 @@ jobs:
       - uses: ./
         name: Sign AAB
         with:
-          releaseDirectory: __tests__/aab
+          releaseDirectory: src/tests/aab
           signingKeyBase64: ${{ steps.get_key.outputs.text }}
           alias: test_key
           keyStorePassword: android
