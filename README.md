@@ -21,7 +21,7 @@ Then copy the contents of the `.txt` file to your GH secrets
 
 ### `alias`
 
-**Required:** The alias of your signing key 
+**Optional:** The alias of your signing key  (note: if you're signing an `aab` file, this is still required.)
 
 ### `keyStorePassword`
 
@@ -35,9 +35,13 @@ Then copy the contents of the `.txt` file to your GH secrets
 
 **Optional:** True to run `zipalign` on the `.apk` to perform the operation, rather than just verify zipalign.
 
+### `pageAlign`
+
+**Optional:** Whether to use the `-p` flag with `zipalign`, which page-aligns uncompressed .so files.
+
 ## ENV: `BUILD_TOOLS_VERSION`
 
-**Optional:** You can manually specify a version of build-tools to use. We use `32.0.0` by default.
+**Optional:** You can manually specify a version of build-tools to use. We use `35.0.0` by default.
 
 ## Outputs
 
@@ -61,7 +65,7 @@ The output variable `signedReleaseFile` can be used in a release action.
 
 ```yaml
 steps:
-  - uses: kevin-david/zipalign-sign-android-release@v1.1
+  - uses: kevin-david/zipalign-sign-android-release@v2
     name: Sign app APK
     # ID used to access action output
     id: sign_app
@@ -73,11 +77,11 @@ steps:
       keyPassword: ${{ secrets.KEY_PASSWORD }}
       zipAlign: true
     env:
-      # override default build-tools version (32.0.0) -- optional
-      BUILD_TOOLS_VERSION: "30.0.2"
+      # override default build-tools version (35.0.0) -- optional
+      BUILD_TOOLS_VERSION: "35.0.0"
 
   # Example use of `signedReleaseFile` output -- not needed
-  - uses: actions/upload-artifact@v2
+  - uses: actions/upload-artifact@v4
     with:
       name: Signed app bundle
       path: ${{steps.sign_app.outputs.signedReleaseFile}}
@@ -90,7 +94,7 @@ can be used to refer to each signed release file.
 
 ```yaml
 steps:
-  - uses: kevin-david/zipalign-sign-android-release@v1.1
+  - uses: kevin-david/zipalign-sign-android-release@v2
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release
@@ -121,7 +125,7 @@ before being used in a release action.
 
 ```yaml
 steps:
-  - uses: kevin-david/zipalign-sign-android-release@v1.1
+  - uses: kevin-david/zipalign-sign-android-release@v2
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release

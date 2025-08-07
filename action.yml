@@ -13,7 +13,7 @@ inputs:
     required: true
   alias:
     description: 'The key alias'
-    required: true
+    required: false
   keyStorePassword:
     description: 'The password to the keystore'
     required: true
@@ -24,6 +24,10 @@ inputs:
     description: 'Actually zipalign the apk, rather than just verifying it'
     required: false
     default: 'false'
+  pageAlign:
+    description: 'Page-aligns uncompressed .so files'
+    required: false
+    default: 'true'
 outputs:
   signedReleaseFile:
     description: 'The signed release APK or AAB file, if single'
@@ -58,5 +62,5 @@ outputs:
   signedReleaseFile12:
     description: 'The 12th signed release APK or AAB file'
 runs:
-  using: 'node16'
-  main: 'lib/main.js'
+  using: 'node20'
+  main: 'lib/index.js'
